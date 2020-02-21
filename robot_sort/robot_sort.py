@@ -92,7 +92,7 @@ class SortingRobot:
         """
         return self._light == "ON"
 
-    def sort(self):
+    def sort(self): # starting here
         """
         Sort the robot's list.
         """
