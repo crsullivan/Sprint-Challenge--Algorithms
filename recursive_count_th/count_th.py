@@ -27,5 +27,5 @@ def count_th(word):
         print(word[1:])
         return count_th(word[1:])
 
-# print(count_th('wbjkithnjklbvthhj'))
+print(count_th('wbjkithnjklbvthhj'))
 
