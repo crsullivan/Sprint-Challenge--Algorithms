@@ -8,7 +8,7 @@ a)
 
 b)
     Quadratic O(n^2), each iteration of the while loop for j is an interation inside an iteration of the for loop for n.
-
+<!-- n log n -->
 c)
     Linear O(n), its going to run once for every n (num of bunnies).
 

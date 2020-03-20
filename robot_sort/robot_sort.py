@@ -97,51 +97,60 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-
-        ####################### PRE COFFEE ############################
-        # self.set_light_on()
-        # while self.light_is_on():
-        #     self.set_light_off()
-        #     for i in range(len(self._list)-1):
-        #         print(self._item, self._list[self._position])
-        #         self.swap_item()
-        #         self.move_right()
-        #         print(self._item)
-        #         if self.compare_item() == None:
-        #             self.move_right()
-        #             if self.compare_item() == -1:
+        self.swap_item()
+        # while True:
+        #     if self.light_is_on() == False: # use light to indicate sorting
+        #         self.set_light_on()
+        #         while self.can_move_right(): # swap item if robots item is less than index checked
+        #             if self.compare_item() == -1  or self.compare_item() == None:
         #                 self.swap_item()
-        #                 while self.can_move_right():
-        #                     self.move_right()
-        #             elif self.compare_item() == 1:
-        #                 while self.can_move_right():
-        #                     self.move_right()
-        #                     if self.compare_item() == -1:
-        #                         self.swap_item()
-        #                         self.set_light_on()
-        #                 else:
-        #                     while self.can_move_left():
-        #                         self.move_left()
+        #             self.move_right()
+        #         if self.compare_item() == -1: # last item still needs to be checked
+        #             self.swap_item()
+        #         while self.can_move_left():
+        #             if self.compare_item() == 1: # on the robots way back to the left if it finds something else to be sorted, light is triggered and sorting happens again
+        #                 self.swap_item()
+        #                 self.set_light_off()
+        #             self.move_left() # if not then the list is sorted
+        #     else:
+        #         break
 
-        ####################### POST COFFEE ############################
-
-        while True:
-            if self.light_is_on() == False: # use light to indicate sorting
-                self.set_light_on()
-                while self.can_move_right(): # swap item if robots item is less than index checked
-                    if self.compare_item() == -1  or self.compare_item() == None:
-                        self.swap_item()
-                    self.move_right()
-                if self.compare_item() == -1: # last item still needs to be checked
+     
+        
+        while self.light_is_on() == False: # use light to indicate sorting
+            self.set_light_on()
+            self.move_right()
+            while self.can_move_right(): # swap item if robots item is less than index checked
+                if self.compare_item() == -1:
                     self.swap_item()
-                while self.can_move_left():
-                    if self.compare_item() == 1: # on the robots way back to the left if it finds something else to be sorted, light is triggered and sorting happens again
-                        self.swap_item()
-                        self.set_light_off()
-                    self.move_left() # if not then the list is sorted
-            else:
-                break
+                self.move_right()
+                ########################## Turns out this was unnecessary the entire time
+            # if self.compare_item() == -1: # last item still needs to be checked
+            #     self.swap_item()
+            ###############################################################################
+            print("AFTER RUN RIGHT", self._list)
+            while self.can_move_left(): # Do the same thing going left, making sure to not miss the last el 
+                if self.can_move_right() == False and self.compare_item() == -1:
+                    print("ITEM", self._item)
+                    print("POSITION", self._list[self._position])
+                    self.swap_item()  
+                    print("AFTER SWAP", self._list)
 
+                #      print("ITEM", self._item)
+                # print("ITEM", self._item)    
+                print("ITEM 1", self._item)
+                self.swap_item() # Robot essentially picks up, compares and drops every element on the way back until it finds something to be sorted
+                print("ITEM 2", self._item)
+                if self.compare_item() == 1: # if it finds something it doesn't like, light is triggered and sorting happens again
+                    print("FLAG", self._item)
+                    print("FLAGGED", self._list[self._position])
+                    self.swap_item()
+                    self.set_light_off()
+                self.move_left() # if not then the item is sorted
+        while self.can_move_left():
+            self.move_left()
+            # move final item back to start
+        self.swap_item()
 
 
 if __name__ == "__main__":
